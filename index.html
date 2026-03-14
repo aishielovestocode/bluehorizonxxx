@@ -243,32 +243,16 @@ max-width:900px;
 margin:auto;
 }
 }
-
-
-.big-section{
-padding:40px 20px;
-display:grid;
-grid-template-columns:1fr;
-gap:50px;
-justify-items:center;
-}
 .big-box{
-width:90%;
-max-width:400px;
-padding:25px;
-text-align:center;
-font-size:clamp(1.2em,2vw,2em);
+opacity:0;
+transform:translateY(40px);
+transition:opacity 1.4s ease, transform 1.4s ease;}
 
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.2);
-
-box-shadow:0 8px 25px rgba(0,0,0,0.4);
-
-cursor:pointer;
-transition:0.3s;
+.big-box.show{
+opacity:1;
+transform:translateY(0);
 }
+
 
 .big-box:hover{
 transform:translateY(-5px);
@@ -676,4 +660,21 @@ function claimLove() {
     loveNotification.classList.remove("show");
   }, 2000);
 }
+// Scroll reveal animation
+
+const boxes = document.querySelectorAll(".big-box");
+
+const observer = new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+},{
+threshold:0.2
+});
+
+boxes.forEach(box=>{
+observer.observe(box);
+});
 </script>

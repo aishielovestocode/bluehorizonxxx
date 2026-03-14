@@ -55,22 +55,7 @@ animation:float 6s linear infinite;
 0%{transform:translateY(0);opacity:1;}
 100%{transform:translateY(-100vh);opacity:0;}
 }
-#scrollPopup {
-  display: none;             /* hidden initially */
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
 
-#scrollPopup.show {
-  display: flex;             /* make it visible */
-  opacity: 1;                /* fade in */
-}
 /* BALLOONS */
 
 .balloon{
@@ -385,11 +370,23 @@ to{opacity:1;transform:translateY(0);}
 .popup.show{
 display:flex;
 }
-#scrollPopup .popup-box{
-padding:8px 18px;      /* smaller box */
-font-size:1em;         /* smaller text */
-border-radius:14px;    /* slightly smaller corners */
-max-width:260px;       /* limit width */
+#scrollPopup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.85);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+
+opacity:0;
+pointer-events:none;
+transition:opacity 0.8s ease;
+}
+
+#scrollPopup.show{
+opacity:1;
+pointer-events:auto;
 }
 
 .letter-box{
@@ -624,10 +621,16 @@ function fireCrackers() {
 // Scroll notification popup
 const scrollPopup = document.getElementById("scrollPopup");
 
-// Show 2 seconds after page loads
+// show after 2s
 window.addEventListener("load", () => {
   setTimeout(() => {
     scrollPopup.classList.add("show");
+
+    // hide after 1.5s
+    setTimeout(() => {
+      scrollPopup.classList.remove("show");
+    }, 1500);
+
   }, 2000);
 });
 
@@ -680,13 +683,5 @@ boxes.forEach(box=>{
 observer.observe(box);
 });
 
-/* make sure first boxes appear if already visible */
-window.addEventListener("load", ()=>{
-boxes.forEach(box=>{
-const rect = box.getBoundingClientRect();
-if(rect.top < window.innerHeight){
-box.classList.add("show");
-}
-});
-});
+
 </script>

@@ -213,8 +213,7 @@ display:flex;
 gap:35px;
 }
 .candle{
-position:absolute;
-top:-35px;
+position:relative;   /* change from absolute */
 width:10px;
 height:40px;
 background:pink;
@@ -491,9 +490,13 @@ line-height:1.4;
 margin-bottom:30px;
 }
 
-.cake{
+@media (max-width:600px){
+
+.cake-container{
 margin-top:80px;
 transform:scale(0.9);
+}
+
 }
 
 
@@ -513,9 +516,7 @@ left:20px;
 }
 @media (max-width:600px){
 
-.cake-container{
-transform:scale(0.9);
-}
+
 
 .candles{
 gap:15px;

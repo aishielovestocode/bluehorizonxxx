@@ -27,7 +27,12 @@ body {
   background-attachment: fixed;         /* optional: keeps background fixed on scroll */
   background-color: #000;               /* fallback if image doesn't load */
 }
-
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+    background-position: top center;
+    background-attachment: scroll;
+  }
 body::before{
 content:"";
 position:fixed;
